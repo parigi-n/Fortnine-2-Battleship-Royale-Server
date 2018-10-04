@@ -1,0 +1,35 @@
+{
+  "name": "fortnine-2-battleship-royale-server",
+  "version": "1.0.0",
+  "description": "Server battleship game",
+  "main": "server.js",
+  "dependencies": {
+    "async-redis": "^1.1.4",
+    "boom": "^7.2.0",
+    "hapi": "^17.6.0",
+    "hapi-auth-jwt2": "^8.1.0",
+    "hapi-swagger": "^9.1.1",
+    "inert": "^5.1.0",
+    "joi": "^13.7.0",
+    "jsonwebtoken": "^8.3.0",
+    "mysql2": "^1.6.1",
+    "sequelize": "^4.39.0",
+    "uuid": "^3.3.2",
+    "vision": "^5.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parigi-n/Fortnine-2-Battleship-Royale-Server.git"
+  },
+  "author": "Nicolas PARIGI",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/parigi-n/Fortnine-2-Battleship-Royale-Server/issues"
+  },
+  "homepage": "https://github.com/parigi-n/Fortnine-2-Battleship-Royale-Server#readme"
+}

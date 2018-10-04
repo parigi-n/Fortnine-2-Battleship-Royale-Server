@@ -1,0 +1,42 @@
+{
+  "development": {
+    "username": "dev",
+    "password": "issoulachancla",
+    "database": "battleship",
+    "host": "188.166.50.184",
+    "dialect": "mysql",
+    "define": {
+      "charset": "utf8",
+      "dialectOptions": {
+        "collate": "utf8_general_ci"
+      }
+    }
+  },
+  "test": {
+    "username": "dev",
+    "password": "issoulachancla",
+    "database": "battleship",
+    "host": "188.166.50.184",
+    "dialect": "mysql",
+    "define": {
+      "charset": "utf8",
+      "dialectOptions": {
+        "collate": "utf8_general_ci"
+      }
+    },
+    "logging": true
+  },
+  "production": {
+    "username": "dev",
+    "password": "issoulachancla",
+    "database": "battleship",
+    "host": "188.166.50.184",
+    "dialect": "mysql",
+    "define": {
+      "charset": "utf8",
+      "dialectOptions": {
+        "collate": "utf8_general_ci"
+      }
+    }
+  }
+}
