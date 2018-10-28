@@ -8,6 +8,8 @@ const Models = require("./models");
 const routes = require("./routes");
 const plugins = require("./plugins");
 
+const socketio = require("./websocket");
+
 let asyncRedisClient;
 
 const server = new Hapi.Server({

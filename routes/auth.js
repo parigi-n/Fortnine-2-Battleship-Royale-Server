@@ -28,7 +28,7 @@ module.exports = [{
         return Boom.unauthorized('Invalid login');
       const tokenData = { userId: response.id };
       const sessionId = uuidv1();
-      const expiresIn = 86400 * 7 //2 jours en secondes
+      const expiresIn = 86400 * 14 //14 jours en secondes
       request.server.app.asyncRedisClient.setex(`${tokenData.userId}:${sessionId}`, expiresIn, request.info.remoteAddress);
       const jwtToken = Jwt.sign(tokenData, 'NeverShareYourSecret', {
         algorithm: 'HS256',
