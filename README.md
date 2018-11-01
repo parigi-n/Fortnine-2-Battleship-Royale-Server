@@ -22,7 +22,7 @@ Requests that can be send from the client to the server. All functions parameter
 **Returns** {success}
 
 ## Server emit
-Requests that will be send from the server to the client. All functions parameters are json Object.
+Requests that will be send from the server to the client. All functions parameters represent json Object sent by the server.
 #### ready()
 Sent by the server when client connection is fully ready
 
