@@ -40,13 +40,27 @@ socket.on("gameEnd", function(data) {
   console.log("gameEnd", data);
 });
 
-socket.on("roundStart", function(data) {
+/*socket.on("roundStart", function(data) {
   console.log("roundStart", data);
   socket.emit('playSign', {
     sign: "paper"
   }, function(data) {
     console.log("playSign", data); // data will be 'woot'
   });
+});*/
+socket.on("roundStart", function(data) {
+  console.log("roundStart", data);
+  /*socket.emit('playSign', {
+    sign: "paper"
+  }, function(data) {
+    console.log("playSign", data); // data will be 'woot'
+  });*/
+  setTimeout(function(){
+    socket.emit('exitRoom', {
+    }, function(data) {
+      console.log("exitRoom", data); // data will be 'woot'
+    });
+  }, 3000);
 });
 
 socket.on("roundEnd", function(data) {
@@ -55,4 +69,8 @@ socket.on("roundEnd", function(data) {
 
 socket.on("playerJoined", function(data) {
   console.log("playerJoined", data);
+});
+
+socket.on("playerExit", function(data) {
+  console.log("playerExit", data);
 });
