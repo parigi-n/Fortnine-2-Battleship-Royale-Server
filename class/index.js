@@ -90,6 +90,25 @@ class Room {
     });
   }
 
+  exitRoom(player) {
+    console.log(`Player ${player.username} (${player.userId}) exited room ${this.name}`)
+    player.socket.leave(this.id, () => {
+      const playerIndex = this.playerList.indexOf(player);
+      if (playerIndex !== -1)
+        this.playerList.splice(playerIndex, 1);
+      player.room = null;
+      this.io.in(this.id).emit('playerExit', player.toJSON());
+      if (this.playerList.length === 1) {
+        if (this.roundList.length > 0)
+          clearTimeout(this.roundList[this.roundList.length - 1].timeoutId);
+        this.io.in(this.id).emit('gameEnd', {
+          winner: this.playerList[0].toJSON()
+        });
+        this.state = "lobby";
+      }
+    });
+  }
+
   launchGame() {
     console.log(`Room ${this.name}: launching game`);
     this.roundList = [];
@@ -104,7 +123,9 @@ class Room {
       this.endRound();
     }, 15000);
     this.roundList.push(new Round(timeoutId));
-    this.io.in(this.id).emit('roundStart', 'roundStart');
+    this.io.in(this.id).emit('roundStart', {
+      duration: 15
+    });
   }
 
   endRound() {
@@ -135,9 +156,13 @@ class Room {
     if (this.roundList.length >= this.config.roundNumber) {
       const gameWinnerIndex = this.getGameWinner();
       if (gameWinnerIndex === null)
-        this.io.in(this.id).emit('gameEnd', {winner: null});
+        this.io.in(this.id).emit('gameEnd', {
+          winner: null
+        });
       else
-        this.io.in(this.id).emit('gameEnd', {winner: this.playerList[gameWinnerIndex].toJSON()});
+        this.io.in(this.id).emit('gameEnd', {
+          winner: this.playerList[gameWinnerIndex].toJSON()
+        });
       this.state = "lobby";
     } else {
       launchRound();

@@ -26,6 +26,7 @@ io.on('connection', async function(socket) {
   const response = await api.users.one(socket.decoded.userId);
   const player = new Player(socket, response.id, response.username);
   console.log(`Player ${player.username} (${player.userId}) connected`)
+
   socket.on('joinRoom', (data, callback) => {
     const roomResult = roomList.find(room => {
       return (room.id === data.id)
@@ -43,7 +44,8 @@ io.on('connection', async function(socket) {
     } else {
       roomResult.joinRoom(player);
       callback({
-        success: true
+        success: true,
+        room: roomResult.toJSON()
       });
     }
   });
@@ -51,7 +53,8 @@ io.on('connection', async function(socket) {
     const newRoom = new Room(io, player, data.name);
     roomList.push(newRoom);
     callback({
-      success: true
+      success: true,
+      room: newRoom.toJSON()
     });
   });
 
@@ -73,6 +76,19 @@ io.on('connection', async function(socket) {
     callback({
       success: true
     });
+  });
+
+  socket.on('exitRoom', (data, callback) => {
+    if (player.room !== null) {
+      player.room.exitRoom(player);
+      callback({
+        success: true
+      });
+    } else {
+      callback({
+        success: false
+      });
+    }
   });
 
   socket.emit('ready');

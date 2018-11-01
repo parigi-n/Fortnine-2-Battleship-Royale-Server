@@ -20,7 +20,7 @@ socket.on('connect_failed', function() {
 socket.on("ready", function(data) {
   console.log(data);
   socket.emit('joinRoom', {
-    id: "8e4451b0-dae8-11e8-875b-53f6842b380b"
+    id: "6643d6f0-ddf8-11e8-88b0-4d088c77ed1d"
   }, function(data) {
     console.log("joinRoom", data);
   });
@@ -43,11 +43,17 @@ socket.on("gameEnd", function(data) {
 
 socket.on("roundStart", function(data) {
   console.log("roundStart", data);
-  socket.emit('playSign', {
+  /*socket.emit('playSign', {
     sign: "paper"
   }, function(data) {
     console.log("playSign", data); // data will be 'woot'
-  });
+  });*/
+  setTimeout(function(){
+    socket.emit('exitRoom', {
+    }, function(data) {
+      console.log("exitRoom", data); // data will be 'woot'
+    });
+  }, 3000);
 });
 
 socket.on("roundEnd", function(data) {
@@ -56,4 +62,8 @@ socket.on("roundEnd", function(data) {
 
 socket.on("playerJoined", function(data) {
   console.log("playerJoined", data);
+});
+
+socket.on("playerExit", function(data) {
+  console.log("playerExit", data);
 });

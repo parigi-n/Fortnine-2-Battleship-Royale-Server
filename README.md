@@ -8,10 +8,13 @@ Documentation can be found at localhost:3000/documentation
 Port 4242
 Requests that can be send from the client to the server. All functions parameters are json Object.
 #### joinRoom({id: `string`})
-**Returns** {success , message *(if success == false)*}
+**Returns** {success, player: `class Player`, message *(if success == false)*}
+
+#### exitRoom()
+**Returns** {success}
 
 #### createRoom({name: `string`})
-**Returns** {success}
+**Returns** {success, player: `class Player`}
 
 #### playSign({sign: `string`})
 - `sign` "rock" || "paper" || "scissors"
@@ -33,7 +36,7 @@ Sent by the server when there is 2 players in the room and that the game start
 Sent by the server when all rounds are finished
 **winner can be null **if result is a draw
 
-#### roundStart()
+#### roundStart({duration: `seconds` })
 Sent by the server when a new round is started
 
 #### roundEnd({roundResult: Array[player: `class Player`, sign: `string`], winner: `class Player` })
