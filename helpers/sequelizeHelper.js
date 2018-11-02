@@ -1,5 +1,5 @@
-const models = require('../models/index');
 const Sequelize = require('sequelize');
+const models = require('../models/index');
 
 exports.users = {
   all() {
@@ -22,7 +22,7 @@ exports.auth = {
           { password },
         ],
       },
-      raw: true
+      raw: true,
     });
   },
   register(payload) {

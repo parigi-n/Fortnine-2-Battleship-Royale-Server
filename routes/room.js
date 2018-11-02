@@ -1,7 +1,7 @@
 const Boom = require('boom');
 
 const {
-  roomList
+  roomList,
 } = require('../websocket');
 
 const roomBaseUrl = '/rooms';
@@ -13,7 +13,7 @@ module.exports = [{
     tags: ['api'],
     description: 'Returns all rooms',
   },
-  handler: async (request, h) => {
+  handler: async () => {
     try {
       return roomList;
     } catch (err) {

@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('users', {
     id: {
@@ -19,7 +17,7 @@ module.exports = {
     password: {
       allowNull: false,
       type: Sequelize.STRING,
-    }
+    },
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('users', {}),
+  down: (queryInterface) => queryInterface.dropTable('users', {}),
 };
