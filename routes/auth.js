@@ -1,4 +1,3 @@
-const Joi = require('joi');
 const Boom = require('boom');
 const Jwt = require('jsonwebtoken');
 const uuidv1 = require('uuid/v1');

@@ -1,10 +1,6 @@
-const Joi = require('joi');
 const Boom = require('boom');
 
-const errorSchema = require('../helpers/error');
-const validation = require('../helpers/validation');
 const {
-  io,
   roomList
 } = require('../websocket');
 

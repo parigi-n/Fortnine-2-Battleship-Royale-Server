@@ -4,8 +4,7 @@ const jwt = require('jsonwebtoken');
 const api = require('./helpers/sequelizeHelper');
 const {
   Player,
-  Room,
-  Round
+  Room
 } = require('./class');
 
 const roomList = [];
