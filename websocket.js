@@ -91,6 +91,17 @@ io.on('connection', async function(socket) {
     }
   });
 
+  socket.on('disconnecting', (reason) => {
+    console.log(`Player ${player.username} (${player.userId}) is disconnecting. Reason: "${reason}"`)
+    if (player.room !== null) {
+      player.room.exitRoom(player);
+    }
+  });
+
+  socket.on('disconnect', (reason) => {
+    console.log(`Player ${player.username} (${player.userId}) disconnected. Reason: "${reason}"`)
+  });
+
   socket.emit('ready');
 });
 
