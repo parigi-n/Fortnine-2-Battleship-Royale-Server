@@ -1,10 +1,24 @@
-# API Rest
+
+## Deployment
+Install dependencies :
+```npm install```
+
+Create a MySQL server, and put login configuration in config/config.json
+On server start, the tables will be automatically created.
+
+Run server dev environment :
+```npm run dev```
+
+Run server prod environment
+```npm run start```
+
+Run linter
+```npm run lint```
+## API Rest
 Port 3000
 Documentation can be found at localhost:3000/documentation
-
-# Socket.io
-
-## Server listener
+## Socket.io
+### Server listener
 Port 4242
 Requests that can be send from the client to the server. All functions parameters are json Object.
 #### joinRoom({id: `string`})
@@ -21,7 +35,7 @@ Requests that can be send from the client to the server. All functions parameter
 
 **Returns** {success}
 
-## Server emit
+### Server emit
 Requests that will be send from the server to the client. All functions parameters represent json Object sent by the server.
 #### ready()
 Sent by the server when client connection is fully ready
@@ -44,7 +58,7 @@ Sent by the server when round is finished (All players have played or round have
 RoundResult contains what players have played for this round, and winner is ... the winner.
 **winner can be null **if result is a draw
 
-## Class
+### Class
 
 #### Player
 - username: `string`
