@@ -30,7 +30,7 @@
     "username": "dev",
     "password": "issoulachancla",
     "database": "battleship_prod",
-    "host": "188.166.50.184",
+    "host": "localhost",
     "dialect": "mysql",
     "define": {
       "charset": "utf8",
