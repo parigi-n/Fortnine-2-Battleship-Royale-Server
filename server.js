@@ -10,7 +10,7 @@ let asyncRedisClient;
 
 const server = new Hapi.Server({
   port: 3000,
-  host: 'localhost',
+  host: '0.0.0.0',
   routes: {
     cors: {
       credentials: true,
