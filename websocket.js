@@ -13,12 +13,13 @@ const roomList = [];
 console.log('Socket.io listening on port 4242');
 io.use((socket, next) => {
   if (socket.handshake.query && socket.handshake.query.token) {
-    jwt.verify(socket.handshake.query.token, 'NeverShareYourSecret', (err, decoded) => {
-      if (err) return next(new Error('Authentication error'));
-      socket.decoded = decoded;
-      console.log("this", this)
-      next();
-      return
+    jwt.verify(socket.handshake.query.token, 'NeverShareYourSecret', function verify(err, decoded) {
+      if (err) {
+        return next(new Error('Authentication error'));
+      }
+      socket.decoded = decoded; // eslint-disable-line no-param-reassign
+      console.log('this', this);
+      return next();
     });
   } else {
     next(new Error('Authentication error'));

@@ -15,7 +15,7 @@
   "test": {
     "username": "dev",
     "password": "issoulachancla",
-    "database": "battleship",
+    "database": "battleship_test",
     "host": "188.166.50.184",
     "dialect": "mysql",
     "define": {
@@ -29,7 +29,7 @@
   "production": {
     "username": "dev",
     "password": "issoulachancla",
-    "database": "battleship",
+    "database": "battleship_prod",
     "host": "188.166.50.184",
     "dialect": "mysql",
     "define": {
@@ -37,6 +37,7 @@
       "dialectOptions": {
         "collate": "utf8_general_ci"
       }
-    }
+    },
+    "logging": false
   }
 }

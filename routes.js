@@ -1,5 +1,3 @@
-
-
 const routes = [];
 routes.push(
   require('./routes/user'),
@@ -7,4 +5,4 @@ routes.push(
   require('./routes/room'),
 );
 
-module.exports = [].concat.apply([], routes); // flat array
+module.exports = [].concat(...routes); // flat array

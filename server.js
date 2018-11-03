@@ -1,5 +1,3 @@
-
-
 const Hapi = require('hapi');
 const AsyncRedisLib = require('async-redis');
 const hapiAuthJwt2 = require('hapi-auth-jwt2');
@@ -7,8 +5,6 @@ const hapiAuthJwt2 = require('hapi-auth-jwt2');
 const Models = require('./models');
 const routes = require('./routes');
 const plugins = require('./plugins');
-
-const socketio = require('./websocket');
 
 let asyncRedisClient;
 

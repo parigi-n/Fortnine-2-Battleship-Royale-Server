@@ -8,6 +8,10 @@ class Player {
     this.userId = userId;
   }
 
+  setRoom(room) {
+    this.room = room;
+  }
+
   toJSON() {
     return {
       userId: this.userId,
@@ -68,7 +72,7 @@ class Room {
   joinRoom(player) {
     console.log(`Player ${player.username} (${player.userId}) joined room ${this.name}`);
     this.playerList.push(player);
-    player.room = this;
+    player.setRoom(this);
     player.socket.join(this.id, () => {
       player.socket.to(this.id).emit('playerJoined', player.toJSON());
       if (this.playerList.length === 2) {
@@ -82,7 +86,7 @@ class Room {
     player.socket.leave(this.id, () => {
       const playerIndex = this.playerList.indexOf(player);
       if (playerIndex !== -1) { this.playerList.splice(playerIndex, 1); }
-      player.room = null;
+      player.setRoom(null);
       this.io.in(this.id).emit('playerExit', player.toJSON());
       if (this.playerList.length === 1) {
         if (this.roundList.length > 0) {
