@@ -3,17 +3,14 @@ const socketio = require('socket.io')();
 const io = socketio.listen(4242);
 const jwt = require('jsonwebtoken');
 const api = require('./helpers/sequelizeHelper');
-const {
-  Player,
-  Room,
-} = require('./class');
+const { Player, Room } = require('./class');
 
 const roomList = [];
 
 console.log('Socket.io listening on port 4242');
 io.use((socket, next) => {
   if (socket.handshake.query && socket.handshake.query.token) {
-    jwt.verify(socket.handshake.query.token, 'NeverShareYourSecret', function verify(err, decoded) {
+    jwt.verify(socket.handshake.query.token, 'NeverShareYourSecret', (err, decoded) => {
       if (err) {
         return next(new Error('Authentication error'));
       }
@@ -30,7 +27,7 @@ io.on('connection', async (socket) => {
   console.log(`Player ${player.username} (${player.userId}) connected`);
 
   socket.on('joinRoom', (data, callback) => {
-    const roomResult = roomList.find(room => (room.id === data.id));
+    const roomResult = roomList.find(room => room.id === data.id);
     if (!roomResult) {
       callback({
         success: false,
@@ -73,13 +70,14 @@ io.on('connection', async (socket) => {
 
   socket.on('exitRoom', (data, callback) => {
     if (player.room !== null) {
-      const room = player.room;
-      room.exitRoom(player);
-      if (room.playerList.length === 0) {
-        const index = roomList.indexOf(room);
-        if (index !== -1)
+      if (player.room.playerList.length === 1) {
+        const index = roomList.indexOf(player.room);
+        if (index !== -1) {
           roomList.splice(index, 1);
+          console.log(`Room ${player.room.name}: No player, deleting`);
+        }
       }
+      player.room.exitRoom(player);
       callback({
         success: true,
       });
@@ -91,8 +89,17 @@ io.on('connection', async (socket) => {
   });
 
   socket.on('disconnecting', (reason) => {
-    console.log(`Player ${player.username} (${player.userId}) is disconnecting. Reason: "${reason}"`);
+    console.log(
+      `Player ${player.username} (${player.userId}) is disconnecting. Reason: "${reason}"`,
+    );
     if (player.room !== null) {
+      if (player.room.playerList.length === 1) {
+        const index = roomList.indexOf(player.room);
+        if (index !== -1) {
+          roomList.splice(index, 1);
+          console.log(`Room ${player.room.name}: No player, deleting`);
+        }
+      }
       player.room.exitRoom(player);
     }
   });

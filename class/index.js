@@ -134,7 +134,6 @@ class Room {
   launchRound() {
     console.log(`Room ${this.name}: launching round`);
     const timeoutId = setTimeout(() => {
-      // <<<---    using ()=> syntax
       this.endRound();
     }, 15000);
     this.roundList.push(new Round(timeoutId));
