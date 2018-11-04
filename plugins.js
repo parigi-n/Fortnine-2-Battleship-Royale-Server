@@ -10,8 +10,8 @@ plugins.push(Inert, Vision, {
   plugin: HapiSwagger,
   options: {
     info: {
-      title: 'Optigrow central API Documentation',
-      version: '2.0',
+      title: 'Fortnine Battleship API Documentation',
+      version: '1.0',
     },
   },
 });

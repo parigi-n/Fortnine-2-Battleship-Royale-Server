@@ -18,7 +18,6 @@ io.use((socket, next) => {
         return next(new Error('Authentication error'));
       }
       socket.decoded = decoded; // eslint-disable-line no-param-reassign
-      console.log('this', this);
       return next();
     });
   } else {
@@ -70,13 +69,6 @@ io.on('connection', async (socket) => {
         success: false,
       });
     }
-  });
-
-  socket.on('message', (data, callback) => {
-    console.log(data);
-    callback({
-      success: true,
-    });
   });
 
   socket.on('exitRoom', (data, callback) => {
