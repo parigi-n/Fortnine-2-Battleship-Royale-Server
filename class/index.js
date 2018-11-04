@@ -82,7 +82,7 @@ class Room {
     this.playerList = [];
     this.roundList = [];
     this.config = {
-      roundNumber: 3,
+      roundNumber: 1,
     };
     console.log(
       `New Room ${this.id} / ${this.name} created by ${player.username} (${player.userId})`,
