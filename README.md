@@ -16,10 +16,12 @@ Run linter
 ```npm run lint```
 ## API Rest
 Port 3000
-Documentation can be found at localhost:3000/documentation
+Access : http://188.166.50.184:3000
+Documentation can be found at  http://188.166.50.184:3000/documentation
 ## Socket.io
 ### Server listener
 Port 4242
+Access : http://188.166.50.184:4242
 Requests that can be send from the client to the server. All functions parameters are json Object.
 #### joinRoom({id: `string`})
 **Returns** {success, room: `class Room`, message *(if success == false)*}
