@@ -21,9 +21,7 @@ const server = new Hapi.Server({
 
 async function validateToken(decoded, request) {
   try {
-    const res = await request.server.app.asyncRedisClient.get(
-      `${decoded.userId}:${decoded.jti}`,
-    );
+    const res = await request.server.app.asyncRedisClient.get(`${decoded.userId}:${decoded.jti}`);
     return res ? { isValid: true } : { isValid: false };
   } catch (err) {
     console.log('err:', err);
@@ -36,9 +34,7 @@ async function validateToken(decoded, request) {
 async function registerPlugins() {
   try {
     await Models.sequelize.sync();
-    asyncRedisClient = AsyncRedisLib.createClient(
-      'redis://:Yu8*@.dLKqDeVv@35.180.31.80:6379/1',
-    );
+    asyncRedisClient = AsyncRedisLib.createClient('redis://:Yu8*@.dLKqDeVv@35.180.31.80:6379/1');
     asyncRedisClient.on('error', (err) => {
       console.error(`Redis error ${err}`);
     });
@@ -72,7 +68,9 @@ server.events.on('stop', () => {
   asyncRedisClient.quit(() => {
     console.log('Redis shut down gracefully');
   });
-  Models.sequelize.connectionManager.close().then(() => console.log('Sequelize shut down gracefully'));
+  Models.sequelize.connectionManager
+    .close()
+    .then(() => console.log('Sequelize shut down gracefully'));
 });
 
 module.exports = server;

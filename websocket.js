@@ -73,7 +73,13 @@ io.on('connection', async (socket) => {
 
   socket.on('exitRoom', (data, callback) => {
     if (player.room !== null) {
-      player.room.exitRoom(player);
+      const room = player.room;
+      room.exitRoom(player);
+      if (room.playerList.length === 0) {
+        const index = roomList.indexOf(room);
+        if (index !== -1)
+          roomList.splice(index, 1);
+      }
       callback({
         success: true,
       });

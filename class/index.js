@@ -31,24 +31,43 @@ class Round {
   }
 
   getWinner() {
-    if (this.playSignList.length === 0) { return null; }
-    if (this.playSignList[0] === undefined && this.playSignList[1] !== undefined) { return 1; }
-    if (this.playSignList[0] !== undefined && this.playSignList[1] === undefined) { return 0; }
-    if (this.playSignList[0] === this.playSignList[1]) { return null; }
+    if (this.playSignList.length === 0) {
+      return null;
+    }
+    if (this.playSignList[0] === undefined && this.playSignList[1] !== undefined) {
+      return 1;
+    }
+    if (this.playSignList[0] !== undefined && this.playSignList[1] === undefined) {
+      return 0;
+    }
+    if (this.playSignList[0] === this.playSignList[1]) {
+      return null;
+    }
     if (this.playSignList[0] === 'rock') {
-      if (this.playSignList[1] === 'paper') { return 1; }
+      if (this.playSignList[1] === 'paper') {
+        return 1;
+      }
       return 0;
-    } if (this.playSignList[0] === 'paper') {
-      if (this.playSignList[1] === 'scissors') { return 1; }
+    }
+    if (this.playSignList[0] === 'paper') {
+      if (this.playSignList[1] === 'scissors') {
+        return 1;
+      }
       return 0;
-    } if (this.playSignList[0] === 'scissors') {
-      if (this.playSignList[1] === 'rock') { return 1; }
+    }
+    if (this.playSignList[0] === 'scissors') {
+      if (this.playSignList[1] === 'rock') {
+        return 1;
+      }
       return 0;
-    } return null;
+    }
+    return null;
   }
 
   havePlayerPlayed() {
-    if (this.playSignList[0] !== undefined && this.playSignList[1] !== undefined) { return true; }
+    if (this.playSignList[0] !== undefined && this.playSignList[1] !== undefined) {
+      return true;
+    }
     return false;
   }
 }
@@ -65,7 +84,9 @@ class Room {
     this.config = {
       roundNumber: 3,
     };
-    console.log(`New Room ${this.id} / ${this.name} created by ${player.username} (${player.userId})`);
+    console.log(
+      `New Room ${this.id} / ${this.name} created by ${player.username} (${player.userId})`,
+    );
     this.joinRoom(player);
   }
 
@@ -85,7 +106,9 @@ class Room {
     console.log(`Player ${player.username} (${player.userId}) exited room ${this.name}`);
     player.socket.leave(this.id, () => {
       const playerIndex = this.playerList.indexOf(player);
-      if (playerIndex !== -1) { this.playerList.splice(playerIndex, 1); }
+      if (playerIndex !== -1) {
+        this.playerList.splice(playerIndex, 1);
+      }
       player.setRoom(null);
       this.io.in(this.id).emit('playerExit', player.toJSON());
       if (this.playerList.length === 1) {
@@ -110,7 +133,8 @@ class Room {
 
   launchRound() {
     console.log(`Room ${this.name}: launching round`);
-    const timeoutId = setTimeout(() => { // <<<---    using ()=> syntax
+    const timeoutId = setTimeout(() => {
+      // <<<---    using ()=> syntax
       this.endRound();
     }, 15000);
     this.roundList.push(new Round(timeoutId));
@@ -136,7 +160,11 @@ class Room {
       });
     } else {
       const winnerPlayer = this.playerList[winnerIndex];
-      console.log(`Room ${this.name}: ending round, Winner is ${winnerPlayer.username} (${winnerPlayer.userId})`);
+      console.log(
+        `Room ${this.name}: ending round, Winner is ${winnerPlayer.username} (${
+          winnerPlayer.userId
+        })`,
+      );
       this.io.in(this.id).emit('roundEnd', {
         roundResult,
         winner: winnerPlayer.toJSON(),
@@ -170,16 +198,24 @@ class Room {
       }
     });
     console.log('winCount', winCount);
-    if (winCount[0] > winCount[1]) { return 0; }
-    if (winCount[0] < winCount[1]) { return 1; }
+    if (winCount[0] > winCount[1]) {
+      return 0;
+    }
+    if (winCount[0] < winCount[1]) {
+      return 1;
+    }
     return null;
   }
 
   playSign(player, sign) {
     const currentRound = this.roundList[this.roundList.length - 1];
     currentRound.playSign(this.playerList.indexOf(player), sign);
-    console.log(`Room ${this.name}: Player ${player.username} (${player.userId}) played sign ${sign}`);
-    if (currentRound.havePlayerPlayed()) { this.endRound(); }
+    console.log(
+      `Room ${this.name}: Player ${player.username} (${player.userId}) played sign ${sign}`,
+    );
+    if (currentRound.havePlayerPlayed()) {
+      this.endRound();
+    }
   }
 
   toJSON() {

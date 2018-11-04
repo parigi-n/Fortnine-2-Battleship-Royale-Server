@@ -17,10 +17,7 @@ exports.auth = {
   login(username, password) {
     return models.user.find({
       where: {
-        [Sequelize.Op.and]: [
-          { username },
-          { password },
-        ],
+        [Sequelize.Op.and]: [{ username }, { password }],
       },
       raw: true,
     });

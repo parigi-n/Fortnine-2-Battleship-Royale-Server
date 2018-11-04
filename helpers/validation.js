@@ -1,7 +1,10 @@
 const Joi = require('joi');
 
 const id = {
-  user: Joi.number().integer().positive().description('Id of the user '),
+  user: Joi.number()
+    .integer()
+    .positive()
+    .description('Id of the user '),
 };
 
 const route = {
@@ -12,18 +15,33 @@ const route = {
 
 const auth = {
   register: {
-    username: Joi.string().alphanum().min(3).max(30)
+    username: Joi.string()
+      .alphanum()
+      .min(3)
+      .max(30)
       .required()
       .description('User last name'),
-    email: Joi.string().email({ minDomainAtoms: 2 }).required().description('User email'),
-    password: Joi.string().min(8).max(32).required()
+    email: Joi.string()
+      .email({ minDomainAtoms: 2 })
+      .required()
+      .description('User email'),
+    password: Joi.string()
+      .min(8)
+      .max(32)
+      .required()
       .description('User password'),
   },
   login: {
-    username: Joi.string().alphanum().min(3).max(30)
+    username: Joi.string()
+      .alphanum()
+      .min(3)
+      .max(30)
       .required()
       .description('User last name'),
-    password: Joi.string().min(8).max(32).required()
+    password: Joi.string()
+      .min(8)
+      .max(32)
+      .required()
       .description('User password'),
   },
 };
